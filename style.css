@@ -5,6 +5,8 @@
   font-size: 2rem;
   cursor: pointer;
   margin-top: 1rem;
+  transition: background .4s, color .4s;
+  -webkit-transition: background .4s, color .4s;
 }
 .answerButton:hover {
   background: #36f;

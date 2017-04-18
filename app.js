@@ -37,7 +37,7 @@ function nextTask() {
   }
   else if (nextTasks.length == 0 && errorTasks.length == 0) {
     $("#answersWrapper").empty();
-    $("#question").text("Вы справились со всеми заданиями");
+    $("#question").text("Вы справились со всеми заданиями").append('<h1 style="margin-left: auto; margin-right: auto;"><a href="">Сыграть ещё разок!</a></h1>');
     return;
   }
   var taskId = nextTasks.shift();
