@@ -2,7 +2,8 @@ var nextTasks = [],
 allTasks = [], 
 errorTasks = [], 
 allTasksObj,
-currentTask
+currentTask,
+clickBlock = false
 ;
 
 var BASE_ANSWERS_COUNT = getParameterByName('answers_count') || 16;
@@ -95,15 +96,19 @@ function inverObject (obj) {
 };
 
 $(document).on('click', '.answerButton', function(){
+  if (clickBlock) return;
+  clickBlock = true;
   var currAnswer = $(this).attr('data-answer');
-  if (currAnswer == currentTask)
+  if (currAnswer == currentTask){
     nextTask();
+    clickBlock = false;
+  }
   else {
     errorTasks.push(currentTask);
     $(this).parents('#answersWrapper').find('[data-answer="'+currentTask+'"]').css({
       "backgroundColor": "#2ecc71", 
       "border": "none"
     });
-    setTimeout(nextTask, TIME_TO_THE_NEXT_QUESTION_ON_FAIL);
+    setTimeout(function(){ clickBlock = false; nextTask();}, TIME_TO_THE_NEXT_QUESTION_ON_FAIL);
   }
 });
