@@ -5,11 +5,14 @@ allTasksObj,
 currentTask
 ;
 
-const BASE_ANSWERS_COUNT = 16;
-const TIME_TO_THE_NEXT_QUESTION_ON_FAIL = 3000;
+var BASE_ANSWERS_COUNT = getParameterByName('answers_count') || 16;
+var TIME_TO_THE_NEXT_QUESTION_ON_FAIL = getParameterByName('time_to_the_next_question_on_fail') || 3000;
 
 $.get('current-task-number.txt', function(data) {
   $.get('tasks/'+data+'.json', function(tasks) {
+    if (getParameterByName('invert') == "true")
+      tasks = inverObject(tasks);
+    
     allTasksObj = tasks;
     doTasks(tasks);
   });
@@ -65,6 +68,31 @@ function shuffleArray(array) {
   }
   return array;
 }
+
+function getParameterByName(name, url) {
+    if (!url) {
+      url = window.location.href;
+    }
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function inverObject (obj) {
+
+  var new_obj = {};
+
+  for (var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      new_obj[obj[prop]] = prop;
+    }
+  }
+
+  return new_obj;
+};
 
 $(document).on('click', '.answerButton', function(){
   var currAnswer = $(this).attr('data-answer');
