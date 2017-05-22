@@ -1,3 +1,12 @@
+@media(max-width: 767px){
+  .answerButton {
+    font-size: 1rem !important;
+  }
+  h1 {
+    font-size: 1.5rem !important;
+  }
+}
+
 .answerButton {
   padding: 1rem;
   border: 3px solid #36f;
