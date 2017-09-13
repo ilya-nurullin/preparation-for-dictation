@@ -9,7 +9,7 @@ clickBlock = false
 var BASE_ANSWERS_COUNT = getParameterByName('answers_count') || 16;
 var TIME_TO_THE_NEXT_QUESTION_ON_FAIL = getParameterByName('time_to_the_next_question_on_fail') || 3000;
 
-$.get('current-task-number.txt', function(data) {
+$.get('current-task.txt', function(data) {
   $.get('tasks/'+data+'.json', function(tasks) {
     if (getParameterByName('invert') == "true")
       tasks = inverObject(tasks);
